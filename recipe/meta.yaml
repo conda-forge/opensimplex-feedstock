@@ -6,22 +6,22 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/opensimplex-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/opensimplex-{{ version }}.tar.gz
   sha256: c390cf70dea97b32bd1a49ba6781e84f48dc93b1cc6c06f36d9d44c548299f90
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - pip
     - setuptools
     - numpy >=1.22
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - numpy >=1.22
 
 test:
@@ -29,6 +29,7 @@ test:
     - opensimplex
   requires:
     - pytest
+    - python {{ python_min }}
   source_files:
     - tests
   commands:
